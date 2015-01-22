@@ -98,6 +98,8 @@ return array(
         ' ' => "_",
         ':' => "."
     */),
+    
+    'filenameRandomize' => false, //random names for files
 
     'mime_magic' => "",
 
