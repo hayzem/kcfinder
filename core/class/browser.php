@@ -288,6 +288,9 @@ class browser extends uploader {
         if (is_array($this->file['name'])) {
             $return = array();
             foreach ($this->file['name'] as $i => $name) {
+                if($this->config['filenameRandomize'] == TRUE){
+                    $name = $this->getRandomHash(10) . substr($name, -4, 4);
+                }
                 $return[] = $this->moveUploadFile(array(
                     'name' => $name,
                     'tmp_name' => $this->file['tmp_name'][$i],
@@ -934,5 +937,14 @@ class browser extends uploader {
 
         $this->session['langs'] = $langs;
         return $langs;
+    }
+    
+    public function getRandomHash($l=10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $l; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
     }
 }
